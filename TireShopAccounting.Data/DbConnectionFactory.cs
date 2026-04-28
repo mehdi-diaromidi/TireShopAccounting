@@ -36,14 +36,14 @@ namespace TireShopAccounting.Data
                 Directory.CreateDirectory(directory);
             }
 
-            // ایجاد دیتابیس در صورت عدم وجود
-            bool isNewDatabase = !File.Exists(DbPath);
-
-            if (isNewDatabase)
+            // ایجاد فایل دیتابیس در صورت نبود فایل
+            if (!File.Exists(DbPath))
             {
                 using (File.Create(DbPath)) { }
-                CreateTables();
             }
+
+            // تضمین ایجاد جداول حتی اگر دیتابیس از قبل وجود داشته باشد
+            CreateTables();
         }
 
         private static void CreateTables()
