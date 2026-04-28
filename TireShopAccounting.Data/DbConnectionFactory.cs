@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Data.SQLite;
 using System.IO;
 using Dapper;
 
@@ -24,7 +23,8 @@ namespace TireShopAccounting.Data
 
         public static IDbConnection CreateConnection()
         {
-            return new SQLiteConnection(ConnectionString);
+            var sqliteType = Type.GetType("System.Data.SQLite.SQLiteConnection, System.Data.SQLite", throwOnError: true);
+            return (IDbConnection)Activator.CreateInstance(sqliteType, ConnectionString);
         }
 
         private static void InitializeDatabase()
@@ -41,7 +41,7 @@ namespace TireShopAccounting.Data
 
             if (isNewDatabase)
             {
-                SQLiteConnection.CreateFile(DbPath);
+                using (File.Create(DbPath)) { }
                 CreateTables();
             }
         }
