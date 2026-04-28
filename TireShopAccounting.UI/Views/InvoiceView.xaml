@@ -1,0 +1,166 @@
+<UserControl x:Class="TireShopAccounting.UI.Views.InvoiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- عنوان -->
+        <TextBlock Grid.Row="0" Text="🧾 فاکتور فروش" FontSize="32" FontWeight="Bold" Foreground="#31241d" Margin="0,0,0,20"/>
+        
+        <!-- انتخاب مشتری و کالا -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <Label Content="انتخاب مشتری:"/>
+                <ComboBox ItemsSource="{Binding Customers}"
+                          SelectedItem="{Binding SelectedCustomer}"
+                          DisplayMemberPath="Name"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                <Label Content="جستجو و انتخاب کالا:"/>
+                <ComboBox ItemsSource="{Binding Products}"
+                          SelectedItem="{Binding SelectedProduct}"
+                          IsEditable="True"
+                          Text="{Binding SearchProductText, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding DisplayName}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Quantity, StringFormat='موجودی: {0}'}" FontSize="12" Foreground="Gray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                <Label Content="تعداد:"/>
+                <TextBox Text="{Binding ItemQuantity, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="3" VerticalAlignment="Bottom">
+                <Button Content="➕ افزودن" 
+                        Command="{Binding AddItemCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="120"/>
+            </StackPanel>
+        </Grid>
+        
+        <!-- لیست اقلام فاکتور -->
+        <GroupBox Grid.Row="2" Header="📋 اقلام فاکتور" Margin="0,0,0,20">
+            <DataGrid ItemsSource="{Binding InvoiceItems}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="نام کالا" Binding="{Binding Product.DisplayName}" Width="2*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="تعداد" Binding="{Binding Quantity}" Width="100" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="قیمت واحد" Binding="{Binding Price, StringFormat='{}{0:N0}'}" Width="150" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="قیمت کل" Binding="{Binding TotalPrice, StringFormat='{}{0:N0}'}" Width="150" IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="عملیات" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="🗑️" 
+                                        Command="{Binding DataContext.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource DangerButtonStyle}"
+                                        Height="35"
+                                        Width="60"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        
+        <!-- جمع کل و دکمه‌ها -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- دکمه‌ها -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="💾 ثبت فاکتور" 
+                        Command="{Binding SaveInvoiceCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="150"/>
+                
+                <Button Content="🖨️ چاپ آخرین فاکتور" 
+                        Command="{Binding PrintInvoiceCommand}"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Width="200"/>
+                
+                <Button Content="🗑️ پاک کردن" 
+                        Command="{Binding ClearInvoiceCommand}"
+                        Style="{StaticResource DangerButtonStyle}"
+                        Width="150"/>
+            </StackPanel>
+            
+            <!-- اطلاعات مالی -->
+            <Border Grid.Column="1" Background="#31241d" CornerRadius="10" Padding="20" MinWidth="350">
+                <StackPanel>
+                    <Grid Margin="0,0,0,10">
+                        <TextBlock Text="جمع کل:" FontSize="16" Foreground="White" HorizontalAlignment="Right"/>
+                        <TextBlock Text="{Binding TotalAmount, StringFormat='{}{0:N0} تومان'}" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   Foreground="#c6ad8b" 
+                                   HorizontalAlignment="Left"/>
+                    </Grid>
+                    
+                    <Grid Margin="0,0,0,10">
+                        <TextBlock Text="تخفیف:" FontSize="16" Foreground="White" HorizontalAlignment="Right"/>
+                        <TextBox Text="{Binding Discount, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="150"
+                                 HorizontalAlignment="Left"
+                                 Height="35"/>
+                    </Grid>
+                    
+                    <Separator Background="#c6ad8b" Margin="0,5"/>
+                    
+                    <Grid Margin="0,10,0,0">
+                        <TextBlock Text="مبلغ قابل پرداخت:" FontSize="18" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right"/>
+                        <TextBlock Text="{Binding FinalAmount, StringFormat='{}{0:N0} تومان'}" 
+                                   FontSize="22" 
+                                   FontWeight="Bold" 
+                                   Foreground="#04256b" 
+                                   Background="White"
+                                   Padding="10,5"
+                                   HorizontalAlignment="Left"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
