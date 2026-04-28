@@ -110,6 +110,11 @@ namespace TireShopAccounting.UI.ViewModels
             }
         }
 
+        public void RefreshData()
+        {
+            LoadProductsAsync();
+        }
+
         private async void SearchProductsAsync()
         {
             var products = await _inventoryService.SearchProductsAsync(SearchText);

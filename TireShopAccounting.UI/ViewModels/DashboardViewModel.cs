@@ -60,5 +60,10 @@ namespace TireShopAccounting.UI.ViewModels
                 LowStockProducts.Add(product);
             }
         }
+
+        public void RefreshData()
+        {
+            LoadDashboardDataAsync();
+        }
     }
 }

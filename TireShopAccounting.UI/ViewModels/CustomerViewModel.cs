@@ -103,6 +103,11 @@ namespace TireShopAccounting.UI.ViewModels
             }
         }
 
+        public void RefreshData()
+        {
+            LoadCustomersAsync();
+        }
+
         private async void SearchCustomersAsync()
         {
             var customers = await _customerRepository.SearchAsync(SearchText);

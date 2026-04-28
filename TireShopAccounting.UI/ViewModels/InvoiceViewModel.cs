@@ -30,13 +30,25 @@ namespace TireShopAccounting.UI.ViewModels
         public Customer SelectedCustomer
         {
             get => _selectedCustomer;
-            set => SetProperty(ref _selectedCustomer, value);
+            set
+            {
+                if (SetProperty(ref _selectedCustomer, value))
+                {
+                    CommandManager.InvalidateRequerySuggested();
+                }
+            }
         }
 
         public Product SelectedProduct
         {
             get => _selectedProduct;
-            set => SetProperty(ref _selectedProduct, value);
+            set
+            {
+                if (SetProperty(ref _selectedProduct, value))
+                {
+                    CommandManager.InvalidateRequerySuggested();
+                }
+            }
         }
 
         public int ItemQuantity
@@ -47,6 +59,7 @@ namespace TireShopAccounting.UI.ViewModels
                 SetProperty(ref _itemQuantity, value);
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(FinalAmount));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -132,6 +145,12 @@ namespace TireShopAccounting.UI.ViewModels
             }
         }
 
+        public void RefreshData()
+        {
+            LoadCustomersAsync();
+            LoadProductsAsync();
+        }
+
         private bool CanAddItem()
         {
             return SelectedProduct != null && ItemQuantity > 0;
@@ -177,6 +196,7 @@ namespace TireShopAccounting.UI.ViewModels
             OnPropertyChanged(nameof(TotalAmount));
             OnPropertyChanged(nameof(FinalAmount));
             ItemQuantity = 1;
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private void RemoveItemFromInvoice(InvoiceItem item)
@@ -186,6 +206,7 @@ namespace TireShopAccounting.UI.ViewModels
                 InvoiceItems.Remove(item);
                 OnPropertyChanged(nameof(TotalAmount));
                 OnPropertyChanged(nameof(FinalAmount));
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -260,6 +281,7 @@ namespace TireShopAccounting.UI.ViewModels
             ItemQuantity = 1;
             OnPropertyChanged(nameof(TotalAmount));
             OnPropertyChanged(nameof(FinalAmount));
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private void PrintLastInvoice()

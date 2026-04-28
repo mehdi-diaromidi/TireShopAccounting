@@ -35,19 +35,13 @@
                 <Label Content="جستجو و انتخاب کالا:"/>
                 <ComboBox ItemsSource="{Binding Products}"
                           SelectedItem="{Binding SelectedProduct}"
+                          DisplayMemberPath="DisplayName"
+                          IsTextSearchEnabled="True"
+                          TextSearch.TextPath="DisplayName"
                           IsEditable="True"
                           Text="{Binding SearchProductText, UpdateSourceTrigger=PropertyChanged}"
                           Foreground="#1F2937"
-                          Background="White">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" Foreground="#1F2937"/>
-                                <TextBlock Text="{Binding Quantity, StringFormat='موجودی: {0}'}" FontSize="11" Foreground="#6B7280"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                          Background="White"/>
             </StackPanel>
             
             <StackPanel Grid.Column="2" Margin="0,0,8,0">
