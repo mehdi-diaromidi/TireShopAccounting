@@ -10,16 +10,28 @@
         <converters:InverseCountToVisibilityConverter x:Key="InverseCountToVisibilityConverter"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         
+        <!-- Color Palette -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#1E3A8A"/>
+        <SolidColorBrush x:Key="PrimaryHoverColor" Color="#1E40AF"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#60A5FA"/>
+        <SolidColorBrush x:Key="DarkColor" Color="#1F2937"/>
+        <SolidColorBrush x:Key="LightColor" Color="#F3F4F6"/>
+        <SolidColorBrush x:Key="SuccessColor" Color="#10B981"/>
+        <SolidColorBrush x:Key="DangerColor" Color="#EF4444"/>
+        <SolidColorBrush x:Key="WarningColor" Color="#F59E0B"/>
+        
         <!-- استایل دکمه منو -->
         <Style x:Key="MenuButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="Margin" Value="10,5"/>
-            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="8,4"/>
+            <Setter Property="Padding" Value="12,8"/>
             <Setter Property="HorizontalContentAlignment" Value="Right"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -36,22 +48,22 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#c6ad8b"/>
+                    <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         
         <!-- استایل دکمه عادی -->
         <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#04256b"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="110"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -59,7 +71,7 @@
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8">
+                                CornerRadius="6">
                             <ContentPresenter HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Margin="{TemplateBinding Padding}"/>
@@ -69,59 +81,63 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0531a0"/>
+                    <Setter Property="Background" Value="{StaticResource PrimaryHoverColor}"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="#cccccc"/>
-                    <Setter Property="Foreground" Value="#666666"/>
+                    <Setter Property="Background" Value="#D1D5DB"/>
+                    <Setter Property="Foreground" Value="#9CA3AF"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         
         <!-- استایل دکمه ثانویه -->
         <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
-            <Setter Property="Background" Value="#c6ad8b"/>
+            <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#b09a7a"/>
+                    <Setter Property="Background" Value="{StaticResource AccentColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         
         <!-- استایل دکمه خطرناک -->
         <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
-            <Setter Property="Background" Value="#dc3545"/>
+            <Setter Property="Background" Value="{StaticResource DangerColor}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#c82333"/>
+                    <Setter Property="Background" Value="#DC2626"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         
         <!-- استایل TextBox -->
         <Style TargetType="TextBox">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="#c6ad8b"/>
-            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
             <Style.Triggers>
                 <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#04256b"/>
+                    <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
         
         <!-- استایل ComboBox -->
         <Style TargetType="ComboBox">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="#c6ad8b"/>
-            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#1F2937"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
         </Style>
         
         <!-- استایل DataGrid -->
@@ -133,39 +149,42 @@
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="GridLinesVisibility" Value="Horizontal"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="RowHeight" Value="40"/>
-            <Setter Property="AlternatingRowBackground" Value="#f9f9f9"/>
-            <Setter Property="BorderBrush" Value="#c6ad8b"/>
+            <Setter Property="RowHeight" Value="38"/>
+            <Setter Property="AlternatingRowBackground" Value="#F9FAFB"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Background" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
         
         <!-- استایل DataGridColumnHeader -->
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#31241d"/>
+            <Setter Property="Background" Value="{StaticResource DarkColor}"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="42"/>
             <Setter Property="Padding" Value="10,8"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="13"/>
         </Style>
         
         <!-- استایل Label -->
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Margin" Value="0,10,0,5"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="0,8,0,4"/>
+            <Setter Property="Foreground" Value="#374151"/>
         </Style>
         
         <!-- استایل GroupBox -->
         <Style TargetType="GroupBox">
-            <Setter Property="BorderBrush" Value="#c6ad8b"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Margin" Value="0,10"/>
-            <Setter Property="Padding" Value="15"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource DarkColor}"/>
         </Style>
         
     </Application.Resources>

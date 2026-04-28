@@ -10,8 +10,8 @@
         WindowState="Maximized"
         FlowDirection="RightToLeft"
         FontFamily="Vazir"
-        FontSize="14"
-        Background="#f3eadd">
+        FontSize="13"
+        Background="#F3F4F6">
     
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -44,68 +44,68 @@
         </Grid.ColumnDefinitions>
         
         <!-- Header -->
-        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#31241d" Padding="20,0">
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource DarkColor}" Padding="20,0">
             <Grid>
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right">
                     <TextBlock Text="سیستم حسابداری لاستیک فروشی" 
-                               FontSize="24" 
+                               FontSize="20" 
                                FontWeight="Bold" 
                                Foreground="White"/>
                     <TextBlock Text="{Binding Source={x:Static System:DateTime.Today}, StringFormat='تاریخ: {0:yyyy/MM/dd}'}" 
-                               FontSize="14" 
-                               Foreground="#c6ad8b"
-                               Margin="0,5,0,0"/>
+                               FontSize="12" 
+                               Foreground="{StaticResource AccentColor}"
+                               Margin="0,4,0,0"/>
                 </StackPanel>
             </Grid>
         </Border>
         
         <!-- Sidebar -->
-        <Border Grid.Row="1" Grid.Column="0" Background="#31241d" Padding="0">
-            <StackPanel Margin="0,20,0,0">
+        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource DarkColor}" Padding="0">
+            <StackPanel Margin="0,16,0,0">
                 
                 <!-- داشبورد -->
                 <Button Command="{Binding ShowDashboardCommand}"
                         Style="{StaticResource MenuButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📊" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="داشبورد" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <TextBlock Text="داشبورد" FontSize="14" Margin="0,0,8,0"/>
+                        <TextBlock Text="📊" FontSize="18"/>
                     </StackPanel>
                 </Button>
                 
                 <!-- کالاها -->
                 <Button Command="{Binding ShowProductsCommand}"
                         Style="{StaticResource MenuButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="📦" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="کالاها" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <TextBlock Text="کالاها" FontSize="14" Margin="0,0,8,0"/>
+                        <TextBlock Text="📦" FontSize="18"/>
                     </StackPanel>
                 </Button>
                 
                 <!-- مشتریان -->
                 <Button Command="{Binding ShowCustomersCommand}"
                         Style="{StaticResource MenuButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="👥" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="مشتریان" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <TextBlock Text="مشتریان" FontSize="14" Margin="0,0,8,0"/>
+                        <TextBlock Text="👥" FontSize="18"/>
                     </StackPanel>
                 </Button>
                 
                 <!-- فاکتور -->
                 <Button Command="{Binding ShowInvoiceCommand}"
                         Style="{StaticResource MenuButtonStyle}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="🧾" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="فاکتور فروش" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <TextBlock Text="فاکتور فروش" FontSize="14" Margin="0,0,8,0"/>
+                        <TextBlock Text="🧾" FontSize="18"/>
                     </StackPanel>
                 </Button>
                 
                 <!-- پشتیبان‌گیری -->
                 <Button Click="BackupButton_Click"
                         Style="{StaticResource MenuButtonStyle}"
-                        Margin="0,40,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="💾" FontSize="20" Margin="0,0,10,0"/>
-                        <TextBlock Text="پشتیبان‌گیری" FontSize="16"/>
+                        Margin="8,32,8,4">
+                    <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                        <TextBlock Text="پشتیبان‌گیری" FontSize="14" Margin="0,0,8,0"/>
+                        <TextBlock Text="💾" FontSize="18"/>
                     </StackPanel>
                 </Button>
                 
@@ -113,7 +113,7 @@
         </Border>
         
         <!-- Content Area -->
-        <Border Grid.Row="1" Grid.Column="1" Background="#f3eadd" Padding="20">
+        <Border Grid.Row="1" Grid.Column="1" Background="#F3F4F6" Padding="20">
             <ContentControl Content="{Binding CurrentViewModel}"/>
         </Border>
     </Grid>

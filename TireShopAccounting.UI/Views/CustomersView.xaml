@@ -19,7 +19,8 @@
                 <!-- جستجو -->
                 <TextBox Grid.Row="0" 
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0,0,0,15">
+                         TextAlignment="Right"
+                         Margin="0,0,0,12">
                     <TextBox.Resources>
                         <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
                             <Style.Triggers>
@@ -29,7 +30,7 @@
                                             <VisualBrush Stretch="None" AlignmentX="Right">
                                                 <VisualBrush.Visual>
                                                     <TextBlock Text="🔍 جستجو..." 
-                                                             Foreground="LightGray" 
+                                                             Foreground="#9CA3AF" 
                                                              Margin="10,0"/>
                                                 </VisualBrush.Visual>
                                             </VisualBrush>
@@ -45,16 +46,34 @@
                 <DataGrid Grid.Row="1" ItemsSource="{Binding Customers}" 
                           SelectedItem="{Binding SelectedCustomer}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="نام مشتری" Binding="{Binding Name}" Width="2*"/>
-                        <DataGridTextColumn Header="شماره تماس" Binding="{Binding Phone}" Width="*"/>
-                        <DataGridTextColumn Header="آدرس" Binding="{Binding Address}" Width="2*"/>
+                        <DataGridTextColumn Header="نام مشتری" Binding="{Binding Name}" Width="2*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="شماره تماس" Binding="{Binding Phone}" Width="*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="آدرس" Binding="{Binding Address}" Width="2*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="مانده حساب" Binding="{Binding BalanceStatus}" Width="150">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding HasDebt}" Value="True">
-                                            <Setter Property="Foreground" Value="#dc3545"/>
+                                            <Setter Property="Foreground" Value="{StaticResource DangerColor}"/>
                                             <Setter Property="FontWeight" Value="Bold"/>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -68,46 +87,52 @@
         
         <!-- فرم افزودن/ویرایش -->
         <GroupBox Grid.Column="1" Header="➕ افزودن/ویرایش مشتری">
-            <StackPanel>
-                
-                <Label Content="نام مشتری:"/>
-                <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                <Label Content="شماره تماس:"/>
-                <TextBox Text="{Binding CustomerPhone, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                <Label Content="آدرس:"/>
-                <TextBox Text="{Binding CustomerAddress, UpdateSourceTrigger=PropertyChanged}"
-                         Height="80"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"
-                         VerticalScrollBarVisibility="Auto"
-                         VerticalContentAlignment="Top"
-                         Padding="10"/>
-                
-                <Label Content="مانده حساب (تومان):"/>
-                <TextBox Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                <!-- دکمه‌ها -->
-                <StackPanel Margin="0,30,0,0">
-                    <Button Content="💾 ذخیره" 
-                            Command="{Binding SaveCommand}"
-                            Style="{StaticResource PrimaryButtonStyle}"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
                     
-                    <Button Content="➕ جدید" 
-                            Command="{Binding AddNewCommand}"
-                            Style="{StaticResource SecondaryButtonStyle}"/>
+                    <Label Content="نام مشتری:"/>
+                    <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}"/>
                     
-                    <Button Content="🗑️ حذف" 
-                            Command="{Binding DeleteCommand}"
-                            Style="{StaticResource DangerButtonStyle}"/>
+                    <Label Content="شماره تماس:"/>
+                    <TextBox Text="{Binding CustomerPhone, UpdateSourceTrigger=PropertyChanged}"/>
                     
-                    <Button Content="❌ انصراف" 
-                            Command="{Binding CancelCommand}"
-                            Style="{StaticResource SecondaryButtonStyle}"/>
+                    <Label Content="آدرس:"/>
+                    <TextBox Text="{Binding CustomerAddress, UpdateSourceTrigger=PropertyChanged}"
+                             Height="70"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             VerticalContentAlignment="Top"
+                             Padding="10"/>
+                    
+                    <Label Content="مانده حساب (تومان):"/>
+                    <TextBox Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged}"/>
+                    
+                    <!-- دکمه‌ها -->
+                    <StackPanel Margin="0,20,0,0">
+                        <Button Content="💾 ذخیره" 
+                                Command="{Binding SaveCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                HorizontalAlignment="Stretch"/>
+                        
+                        <Button Content="➕ جدید" 
+                                Command="{Binding AddNewCommand}"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                HorizontalAlignment="Stretch"/>
+                        
+                        <Button Content="🗑️ حذف" 
+                                Command="{Binding DeleteCommand}"
+                                Style="{StaticResource DangerButtonStyle}"
+                                HorizontalAlignment="Stretch"/>
+                        
+                        <Button Content="❌ انصراف" 
+                                Command="{Binding CancelCommand}"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                    
                 </StackPanel>
-                
-            </StackPanel>
+            </ScrollViewer>
         </GroupBox>
     </Grid>
 </UserControl>
