@@ -24,8 +24,21 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore TireShopAccounting.sln
 
+      - name: Resolve SQLite reference path
+        shell: powershell
+        run: |
+          $dll = Get-ChildItem -Path ".\packages" -Recurse -Filter "System.Data.SQLite.dll" | Select-Object -First 1
+          if (-not $dll) {
+            Write-Host "SQLite DLL not found under packages. Dumping package tree..."
+            Get-ChildItem -Path ".\packages" -Recurse | Select-Object FullName
+            throw "System.Data.SQLite.dll not found after restore."
+          }
+          $dir = $dll.DirectoryName
+          "SQLITE_REF_DIR=$dir" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Write-Host "Using SQLite reference path: $dir"
+
       - name: Build solution (Release)
-        run: msbuild TireShopAccounting.sln /t:Rebuild /p:Configuration=Release /v:m
+        run: msbuild TireShopAccounting.sln /t:Rebuild /p:Configuration=Release /p:ReferencePath="%SQLITE_REF_DIR%" /v:m
 
       - name: Install Inno Setup
         run: choco install innosetup --yes --no-progress
