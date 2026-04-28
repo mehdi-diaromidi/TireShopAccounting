@@ -95,7 +95,7 @@ begin
     'نصب برنامه به صورت خودکار انجام می‌شود'
   );
 
-  IntroText := TNewMemo.Create(IntroPage);
+  IntroText := TNewMemo.Create(WizardForm);
   IntroText.Parent := IntroPage.Surface;
   IntroText.Left := ScaleX(0);
   IntroText.Top := ScaleY(0);
