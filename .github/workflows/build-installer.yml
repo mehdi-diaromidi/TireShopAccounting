@@ -27,7 +27,12 @@ jobs:
       - name: Resolve SQLite reference path
         shell: powershell
         run: |
-          $dll = Get-ChildItem -Path ".\packages" -Recurse -Filter "System.Data.SQLite.dll" | Select-Object -First 1
+          $preferred = ".\packages\System.Data.SQLite.1.0.115.5\lib\net46\System.Data.SQLite.dll"
+          if (Test-Path $preferred) {
+            $dll = Get-Item $preferred
+          } else {
+            $dll = Get-ChildItem -Path ".\packages" -Recurse -Filter "System.Data.SQLite.dll" | Select-Object -First 1
+          }
           if (-not $dll) {
             Write-Host "SQLite DLL not found under packages. Dumping package tree..."
             Get-ChildItem -Path ".\packages" -Recurse | Select-Object FullName
