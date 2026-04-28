@@ -93,7 +93,7 @@ namespace TireShopAccounting.UI.ViewModels
             InvoiceItems = new ObservableCollection<InvoiceItem>();
 
             AddItemCommand = new RelayCommand(AddItemToInvoice, CanAddItem);
-            RemoveItemCommand = new RelayCommand<InvoiceItem>(RemoveItemFromInvoice);
+            RemoveItemCommand = new RelayCommand(param => RemoveItemFromInvoice(param as InvoiceItem));
             SaveInvoiceCommand = new RelayCommand(async () => await SaveInvoiceAsync(), CanSaveInvoice);
             ClearInvoiceCommand = new RelayCommand(ClearInvoice);
             PrintInvoiceCommand = new RelayCommand(PrintLastInvoice, () => _lastSavedInvoice != null);
